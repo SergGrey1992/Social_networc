@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from "./Components/Header/Header";
+import Navbar from "./Components/NavBar/NavBar";
+import Profile from "./Components/Profile/Profile";
+import Dialogs from "./Components/Dialogs/Dialogs"
+import { RootStateType } from './redux/state'
+import { Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type AppStatePropsType= {
+    state:RootStateType
+}
+function App(props:AppStatePropsType) {
+    return (<div className='app_wrapper'>
+                <Header/>
+                <Navbar state={props.state}/>
+                <div className="app_wrapper_content">
+                    <Route path='/dialogs' render={() => <Dialogs messagesPage={props.state.messagesPage}/>}/>
+                    <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}/>}/>
+                </div>
+            </div>
+    );
 }
 
 export default App;
