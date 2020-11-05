@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import style from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
@@ -9,7 +9,14 @@ type DialogsPropsType = {
 }
 
 
-const Dialogs = (props:DialogsPropsType) => {
+const Dialogs = (props: DialogsPropsType) => {
+    const [valueTextarea, setValueTextarea] = useState("")
+    const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setValueTextarea(e.currentTarget.value)
+    }
+    const onClickHandler = () => {
+        alert(valueTextarea)
+    }
     let dialogsElement = props.messagesPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
 
     let messagesElement = props.messagesPage.messages.map(message => <Messages message={message.message}/>)
@@ -20,6 +27,15 @@ const Dialogs = (props:DialogsPropsType) => {
             </div>
             <div className={style.messages}>
                 {messagesElement}
+                <div>
+                    <div>
+                        <textarea value={valueTextarea} onChange={onChange}/>
+
+                    </div>
+                    <div>
+                        <button onClick={onClickHandler}>Add message</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

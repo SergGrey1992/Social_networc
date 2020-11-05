@@ -5,4 +5,13 @@
 
 .postAdding {
     padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    align-items: center;
+}
+.postAdding button {
+    margin-top: 10px;
+    width: 80px;
+    align-items: center;
 }
