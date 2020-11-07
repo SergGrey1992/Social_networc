@@ -5,7 +5,8 @@ import {Sidebar} from "./Sidebar/Sidebar";
 import { RootStateType} from "../../redux/state";
 
 type AppStatePropsType= {
-    state:RootStateType}
+    store:RootStateType
+}
 
 const Navbar = (props:AppStatePropsType) => {
     return <nav className={style.nav}>
@@ -24,7 +25,7 @@ const Navbar = (props:AppStatePropsType) => {
         <div className={style.item}>
             <NavLink to='/#!'>Settings</NavLink>
         </div>
-    <Sidebar asideState={props.state.asideState}/>
+    <Sidebar asideState={props.store.asideState}/>
     </nav>
 }
 export default Navbar

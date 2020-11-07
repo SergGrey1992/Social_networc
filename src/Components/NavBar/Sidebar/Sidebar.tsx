@@ -3,7 +3,6 @@ import style from './Sidebar.module.css';
 import {SideFriend} from "./SideFriend/SideFriend";
 import {AsideStateType} from "../../../redux/state";
 
-
 type SidebarPropsType = {
     asideState: AsideStateType
 }

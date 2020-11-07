@@ -1,13 +1,14 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from './MyPosts.module.css';
 import Post from "./Post/Post";
-import { PostType } from '../../../redux/state';
+import {addPostActionCreator, PostType} from '../../../redux/state';
 
 
 type MyPostsPropsType={
   posts:PostType[]
-  addPost: (postMessage: string) => void
+  dispatch: (action: any) => void
 }
+
 
 export const MyPosts = (props:MyPostsPropsType) => {
 
@@ -20,7 +21,9 @@ export const MyPosts = (props:MyPostsPropsType) => {
   }
 
   const onClickButton = () => {
-    props.addPost(valueTextarea)
+    debugger
+    props.dispatch(addPostActionCreator(valueTextarea))
+    setValueTextarea("")
   }
 
   return <div className={style.item}>
