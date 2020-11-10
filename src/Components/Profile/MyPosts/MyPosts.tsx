@@ -25,10 +25,10 @@ export const MyPosts = (props:MyPostsPropsType) => {
     setValueTextarea("")
   }
 
-  return <div className={style.item}>
-    <h3>My posts</h3>
+  return <div className={style.wrapperItem}>
+    <h3 className={style.styleH3}>----My posts----</h3>
     <div className={style.postAdding}>
-      <textarea value={valueTextarea} onChange={changeTextarea}/>
+      <textarea value={valueTextarea} onChange={changeTextarea} placeholder={"Накарябай пост =)"}/>
       <button onClick={onClickButton}>Add post</button>
     </div>
     {postsElement}

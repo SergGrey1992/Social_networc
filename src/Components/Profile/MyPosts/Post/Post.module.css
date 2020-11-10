@@ -1,8 +1,25 @@
-.item {
-    color: black;
+.wrapperItemCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #72757e;
+    background-color: #16161a;
+    border: 2px solid #fffffe;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 8px;
 }
 
 .avatar {
     height: 50px;
-    border-radius: 100%;
+    padding-right: 15px;
+}
+.wrapperLike {
+    color: #fffffe;
+    padding-left: 15px;
+    font-size: 20px;
+}
+.message {
+    color: #72757e;
+    font-size: 22px;
 }

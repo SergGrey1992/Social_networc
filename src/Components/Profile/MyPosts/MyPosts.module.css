@@ -1,6 +1,9 @@
-.item {
-    margin: 0 0 10px 10px;
-
+.wrapperItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 15px;
+    background-color: #242629;
 }
 
 .postAdding {
@@ -11,7 +14,27 @@
     align-items: center;
 }
 .postAdding button {
+    border-radius: 5px;
+    color: #fffffe;
+    font-size: 17px;
+    border: 2px solid #7f5af0;
     margin-top: 10px;
-    width: 80px;
+    width: 100px;
+    height: 30px;
     align-items: center;
+    background-color: #7f5af0;
+}
+.styleH3 {
+    color: #fffffe;
+    font-size: 25px;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+textarea {
+    min-width: 250px;
+    min-height: 75px;
+    background-color: #16161a;
+    font-size: 15px;
+    color: #fffffe;
 }

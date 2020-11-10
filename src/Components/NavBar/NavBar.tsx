@@ -17,13 +17,13 @@ const Navbar = (props:AppStatePropsType) => {
             <NavLink to='/dialogs' activeClassName={style.activeLink}>Messages</NavLink>
         </div>
         <div className={style.item}>
-            <NavLink to='/#!'>News</NavLink>
+            <NavLink to='/news'>News</NavLink>
         </div>
         <div className={style.item}>
-            <NavLink to='/#!'>Music</NavLink>
+            <NavLink to='/music'>Music</NavLink>
         </div>
         <div className={style.item}>
-            <NavLink to='/#!'>Settings</NavLink>
+            <NavLink to='/settings'>Settings</NavLink>
         </div>
     <Sidebar asideState={props.store.asideState}/>
     </nav>

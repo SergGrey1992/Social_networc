@@ -1,15 +1,27 @@
 .nav {
     grid-area: nav;
-    background-color: lavenderblush;
+    background-color: #16161a;
     padding: 20px;
+    margin-left: 10px;
 }
 
 .item a {
-    color: black;
+    color: #fffffe;
     text-decoration: none;
+    border: 2px solid white;
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 7px;
 }
 
 .item a.activeLink {
-    color: black;
+    color: #fffffe;
+    background-color: #7f5af0;
+    border: 2px solid white;
     font-family: "Lucida Calligraphy", serif;
+}
+.item a:hover {
+    background-color: #a680f0;
 }
