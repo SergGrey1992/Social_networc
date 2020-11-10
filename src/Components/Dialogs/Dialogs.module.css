@@ -5,7 +5,8 @@
 
 .dialogItems {
     padding: 10px;
-
+    background-color: #242629;
+    border-right: 10px solid white;
 }
 
 .dialogItems .active {
@@ -20,8 +21,28 @@
 
 .messages {
     padding: 10px;
+    background-color: #242629;
 }
 
 .message {
+    color: #fffffe;
+    padding: 5px;
+    font-size: 15px;
+}
+.wrapperTextForm {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+}
 
+.wrapperTextForm button {
+    border-radius: 5px;
+    color: #fffffe;
+    font-size: 17px;
+    border: 2px solid #7f5af0;
+    margin-top: 10px;
+    width: 150px;
+    height: min-content;
+    align-items: center;
+    background-color: #7f5af0;
 }

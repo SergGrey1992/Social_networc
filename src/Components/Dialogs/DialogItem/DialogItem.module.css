@@ -1,0 +1,31 @@
+.wrapperName {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    text-align: center;
+    background-color: #242629;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.wrapperName a {
+    color: #fffffe;
+    text-decoration: none;
+    border: 2px solid white;
+    margin-top: 5px;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 7px;
+}
+
+.wrapperName a.activeLink {
+    color: #fffffe;
+    background-color: #7f5af0;
+    border: 2px solid white;
+    font-family: "Lucida Calligraphy", serif;
+}
+
+.wrapperName a:hover {
+    background-color: #a680f0;
+}

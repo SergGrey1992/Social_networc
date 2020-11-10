@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import style from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {addPostActionCreator, PostType} from '../../../redux/state';
@@ -20,6 +20,12 @@ export const MyPosts = (props:MyPostsPropsType) => {
     setValueTextarea(e.currentTarget.value)
   }
 
+  const onClickHandlerButton = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter") {
+      onClickButton()
+    }
+  }
+
   const onClickButton = () => {
     props.dispatch(addPostActionCreator(valueTextarea))
     setValueTextarea("")
@@ -28,7 +34,7 @@ export const MyPosts = (props:MyPostsPropsType) => {
   return <div className={style.wrapperItem}>
     <h3 className={style.styleH3}>----My posts----</h3>
     <div className={style.postAdding}>
-      <textarea value={valueTextarea} onChange={changeTextarea} placeholder={"Накарябай пост =)"}/>
+      <textarea value={valueTextarea} onKeyPress={onClickHandlerButton} onChange={changeTextarea} placeholder={"Накарябай пост =)"}/>
       <button onClick={onClickButton}>Add post</button>
     </div>
     {postsElement}
