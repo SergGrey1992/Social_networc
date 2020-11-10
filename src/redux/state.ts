@@ -1,4 +1,5 @@
 const ADD_POST = "ADD_POST";
+const ADD_MESSAGE = "ADD_MESSAGE";
 
 export type StoreType = {
   _state: RootStateType
@@ -101,11 +102,18 @@ const store: StoreType = {
       let newPost = {id: 5, message: action.postMessage, likesCount: 0}
       this._state.profilePage.posts.push(newPost);
       this._callSubscriber()
+    } else if (action.type === ADD_MESSAGE){
+      let newMessage = {id: 5, message: action.messageText}
+      this._state.messagesPage.messages.push(newMessage)
+      this._callSubscriber()
     }
   }
 }
 export const addPostActionCreator = (valueTextarea: string) => {
   return {type: ADD_POST, postMessage: valueTextarea}
+}
+export  const addMessageActionCreator = (valueTextarea: string) => {
+  return {type: ADD_MESSAGE, messageText: valueTextarea }
 }
 
 export default store

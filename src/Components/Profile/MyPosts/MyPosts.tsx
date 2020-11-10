@@ -21,7 +21,6 @@ export const MyPosts = (props:MyPostsPropsType) => {
   }
 
   const onClickButton = () => {
-    debugger
     props.dispatch(addPostActionCreator(valueTextarea))
     setValueTextarea("")
   }

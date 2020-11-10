@@ -20,9 +20,12 @@ const App = (props: AppStatePropsType) => {
       <div className="app_wrapper_content">
         <Route path='/dialogs' render={() => <Dialogs
           messagesPage={props.state.messagesPage}
+          dispatch={props.dispatch}
         />}
         />
-        <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
+        <Route path='/profile' render={() => <Profile
+          profilePage={props.state.profilePage}
+          dispatch={props.dispatch}/>}/>
       </div>
     </div>
   );
