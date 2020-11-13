@@ -1,3 +1,6 @@
+import profileReducer from "./profile_reducer";
+import dialogsReducer from "./dialogs_reducer";
+
 const ADD_POST = "ADD_POST";
 const ADD_MESSAGE = "ADD_MESSAGE";
 
@@ -33,10 +36,12 @@ export type PostType = {
 export type ProfilePageType = {
   posts: Array<PostType>
 }
+
 export type MessagesPageType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
 }
+
 export type RootStateType = {
   profilePage: ProfilePageType
   messagesPage: MessagesPageType
@@ -98,22 +103,16 @@ const store: StoreType = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      let newPost = {id: 5, message: action.postMessage, likesCount: 0}
-      this._state.profilePage.posts.push(newPost);
-      this._callSubscriber()
-    } else if (action.type === ADD_MESSAGE){
-      let newMessage = {id: 5, message: action.messageText}
-      this._state.messagesPage.messages.push(newMessage)
-      this._callSubscriber()
-    }
+    this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._callSubscriber()
   }
 }
 export const addPostActionCreator = (valueTextarea: string) => {
   return {type: ADD_POST, postMessage: valueTextarea}
 }
-export  const addMessageActionCreator = (valueTextarea: string) => {
-  return {type: ADD_MESSAGE, messageText: valueTextarea }
+export const addMessageActionCreator = (valueTextarea: string) => {
+  return {type: ADD_MESSAGE, messageText: valueTextarea}
 }
 
 export default store

@@ -11,6 +11,7 @@ type DialogsPropsType = {
 
 
 const Dialogs = (props: DialogsPropsType) => {
+  debugger
   const [valueTextarea, setValueTextarea] = useState("")
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValueTextarea(e.currentTarget.value)
@@ -24,7 +25,6 @@ const Dialogs = (props: DialogsPropsType) => {
   const onClickHandler = () => {
     const trimmedValue = valueTextarea.trim()
     props.dispatch(addMessageActionCreator(trimmedValue))
-
     setValueTextarea("")
   }
 
@@ -42,7 +42,9 @@ const Dialogs = (props: DialogsPropsType) => {
         {messagesElement}
         <div>
           <div className={style.wrapperTextForm}>
-            <textarea value={valueTextarea} onChange={onChange} onKeyPress={onClickHandlerButton}/>
+            <textarea value={valueTextarea}
+                      onChange={onChange}
+                      onKeyPress={onClickHandlerButton}/>
             <button onClick={onClickHandler} >Add message</button>
           </div>
         </div>
