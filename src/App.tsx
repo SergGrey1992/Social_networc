@@ -5,7 +5,7 @@ import Navbar from "./Components/NavBar/NavBar";
 import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
 import {Route} from 'react-router-dom';
-import {RootStateType} from "./redux/state";
+import {RootStateType} from "./redux/store";
 
 type AppStatePropsType = {
   state: RootStateType

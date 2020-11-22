@@ -1,8 +1,10 @@
-import React, {ChangeEvent,KeyboardEvent, useState} from "react";
-import style from './Dialogs.module.css';
+import React, {ChangeEvent, useState, KeyboardEvent} from "react"
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
-import {addMessageActionCreator, MessagesPageType} from "../../redux/state";
+import {MessagesPageType} from "../../redux/store";
+import {addMessageActionCreator} from "../../redux/dialogs_reducer";
+import style from "./Dialogs.module.css"
+
 
 type DialogsPropsType = {
   messagesPage: MessagesPageType

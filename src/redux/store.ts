@@ -1,8 +1,6 @@
 import profileReducer from "./profile_reducer";
 import dialogsReducer from "./dialogs_reducer";
 
-const ADD_POST = "ADD_POST";
-const ADD_MESSAGE = "ADD_MESSAGE";
 
 export type StoreType = {
   _state: RootStateType
@@ -96,7 +94,7 @@ const store: StoreType = {
     return this._state
   },
   _callSubscriber() {
-
+    console.log('was changed')
   },
   subscribe(callback) {
     this._callSubscriber = callback
@@ -108,11 +106,7 @@ const store: StoreType = {
     this._callSubscriber()
   }
 }
-export const addPostActionCreator = (valueTextarea: string) => {
-  return {type: ADD_POST, postMessage: valueTextarea}
-}
-export const addMessageActionCreator = (valueTextarea: string) => {
-  return {type: ADD_MESSAGE, messageText: valueTextarea}
-}
+
+
 
 export default store
