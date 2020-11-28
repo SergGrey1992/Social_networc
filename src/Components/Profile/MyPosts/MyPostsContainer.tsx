@@ -1,38 +1,39 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import { PostType} from '../../../redux/store';
-import {addPostActionCreator} from "../../../redux/profile_reducer";
+import React, {Dispatch} from 'react';
+import {PostType} from '../../../redux/store';
+import {addPostActionCreator, changePostTextActionCreator} from "../../../redux/profile_reducer";
 import {MyPosts} from "./MyPosts";
+import {connect} from "react-redux";
+import {RootStoreType} from "../../../redux/redux_store";
 
-
-type MyPostsContainerPropsType={
-  posts:PostType[]
-  dispatch: (action: any) => void
+type MSTPType = {
+  posts: Array<PostType>
+  newPostText: string
 }
 
-export const MyPostsContainer = (props:MyPostsContainerPropsType) => {
+type MDTPType = {
+  addPostActionCreator: () => void
+  changePostText: (text: string) => void
+}
 
-  const [valueTextarea, setValueTextarea] = useState("")
 
-  const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValueTextarea(e.currentTarget.value)
-  }
 
-  const onClickHandlerButton = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
-      onClickButton()
+const mapDispatchToProps = (dispatch: Dispatch<any>): MDTPType => {
+  return {
+    addPostActionCreator: () => {
+      dispatch(addPostActionCreator())
+    },
+    changePostText: (text: string) => {
+      dispatch(changePostTextActionCreator(text))
     }
   }
-
-  const onClickButton = () => {
-    props.dispatch(addPostActionCreator(valueTextarea))
-    setValueTextarea("")
-  }
-
-  return <MyPosts valueTextarea={valueTextarea}
-                  changeTextarea={changeTextarea}
-                  onClickHandlerButton={onClickHandlerButton}
-                  onClickButton={onClickButton}
-                  posts={props.posts}
-  />
 }
+
+const mapStateToProps = (state: RootStoreType): MSTPType => {
+  return {
+    posts: state.profileReducer.posts,
+    newPostText: state.profileReducer.newPostText
+  }
+}
+
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 

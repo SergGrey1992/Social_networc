@@ -1,5 +1,4 @@
-import React, {ChangeEvent, useState, KeyboardEvent, Dispatch} from "react"
-import {MessagesPageType} from "../../redux/store";
+import React, {Dispatch} from "react"
 import {ActionType, addMessageActionCreator, changeMessageTextActionCreator} from "../../redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
@@ -10,18 +9,19 @@ const mapStateToProps = (state: RootStoreType) => {
     messagesPage: state.dialogsReducer,
     newMessageText: state.dialogsReducer.newMessageText
   }
-  const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
-    return {
-      addMessage: (trimmedValue: string) => {
-        dispatch(addMessageActionCreator(trimmedValue))
-      },
-      changeMessageText: (trimmedValue: string) => {
-        dispatch(changeMessageTextActionCreator(trimmedValue))
-      }
+}
+const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
+  return {
+    addMessage: () => {
+      dispatch(addMessageActionCreator())
+    },
+    changeMessageText: (trimmedValue: string) => {
+      dispatch(changeMessageTextActionCreator(trimmedValue))
     }
   }
-  const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
-  /*export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer)*/
 }
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+/*export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer)*/
+
 export default DialogsContainer;
 

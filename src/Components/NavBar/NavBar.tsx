@@ -1,14 +1,10 @@
 import React from 'react';
 import style from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
-import {Sidebar} from "./Sidebar/Sidebar";
-import { RootStateType} from "../../redux/store";
+import {RootStateType} from "../../redux/store";
+import {SidebarContainer} from "./Sidebar/Sidebar";
 
-type AppStatePropsType= {
-    store:RootStateType
-}
-
-const Navbar = (props:AppStatePropsType) => {
+const Navbar = () => {
     return <nav className={style.nav}>
         <div className={style.item}>
             <NavLink to='/profile' activeClassName={style.activeLink}>Profile</NavLink>
@@ -25,7 +21,9 @@ const Navbar = (props:AppStatePropsType) => {
         <div className={style.item}>
             <NavLink to='/settings'>Settings</NavLink>
         </div>
-    <Sidebar asideState={props.store.asideState}/>
+
+    <SidebarContainer />
+
     </nav>
 }
 export default Navbar

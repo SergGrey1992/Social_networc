@@ -1,7 +1,5 @@
-import { DialogType, MessageType} from "./store";
-
-export const addMessageActionCreator = (valueTextarea: string) => {
-  return {type: ADD_MESSAGE, messageText: valueTextarea} as const
+export const addMessageActionCreator = () => {
+  return {type: ADD_MESSAGE} as const
 }
 
 export const changeMessageTextActionCreator = (valueTextarea: string) => {
@@ -14,6 +12,15 @@ const ADD_MESSAGE = "ADD_MESSAGE";
 export type ActionType =
   ReturnType<typeof addMessageActionCreator> |
   ReturnType<typeof changeMessageTextActionCreator>
+
+type DialogType = {
+  id: number
+  name: string
+}
+type MessageType = {
+  id: number
+  message: string
+}
 
 type InitialStateType = {
   messages: Array<MessageType>

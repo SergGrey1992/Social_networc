@@ -1,16 +1,16 @@
 import {PostType} from "./store";
 
-export const addPostActionCreator = (valueTextarea: string) => {
-  return {type: ADD_POST, postMessage: valueTextarea} as const
+const ADD_POST = "ADD_POST";
+const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
+
+export const addPostActionCreator = () => {
+  return {type: ADD_POST} as const
 }
 export const changePostTextActionCreator = (valueTextarea: string) => {
   return {type: CHANGE_POST_TEXT, newPostText: valueTextarea} as const
 }
 
-const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
-const ADD_POST = "ADD_POST";
-
-type ActionType =
+export type ActionType =
   ReturnType<typeof addPostActionCreator> |
   ReturnType<typeof changePostTextActionCreator>
 
@@ -30,18 +30,22 @@ let initialState = {
 }
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+  debugger
   switch (action.type) {
-    case ADD_POST: {
-      let newPost = {id: 5, message: action.postMessage, likesCount: 0}
-      state.posts.push(newPost);
-    return state
-    }
+
+    case "ADD_POST":
+      return {
+        ...state,
+        posts: [ ...state.posts, {id: 5, message: state.newPostText, likesCount: 0} ]
+      }
+
     case CHANGE_POST_TEXT:
-      return{
-      ...state,
+      return {
+        ...state,
         newPostText: action.newPostText
-    }
+      }
+    default:
+      return state
   }
-  return state
 }
 export default profileReducer;

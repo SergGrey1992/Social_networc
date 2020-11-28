@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent} from "react"
+import React, {ChangeEvent} from "react"
 import DialogItem from "./DialogItem/DialogItem";
 import Messages from "./Messages/Messages";
 import {MessagesPageType} from "../../redux/store";
@@ -8,19 +8,24 @@ import style from "./Dialogs.module.css"
 type DialogsPropsType = {
   messagesPage: MessagesPageType
   newMessageText: string
+  addMessage: () => void
+  changeMessageText: (trimmedValue: string) => void
 }
 
 
 const Dialogs = (props: DialogsPropsType) => {
-
-
   let dialogsElement = props.messagesPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
 
   let messagesElement = props.messagesPage.messages.map(message => <Messages message={message.message}/>)
 
-  let onNewMessageChange = (e: any) => {
+  let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let body = e.currentTarget.value
+    props.changeMessageText(body)
   }
+  let addNewMessage = () => {
+    props.addMessage()
+  }
+
 
   return (
     <div className={style.dialogs}>
@@ -33,8 +38,10 @@ const Dialogs = (props: DialogsPropsType) => {
         {messagesElement}
         <div>
           <div className={style.wrapperTextForm}>
-            <textarea />
-            <button >Add message</button>
+            <textarea value={props.newMessageText}
+                      onChange={onNewMessageChange}
+            />
+            <button onClick={addNewMessage} >Add message</button>
           </div>
         </div>
       </div>

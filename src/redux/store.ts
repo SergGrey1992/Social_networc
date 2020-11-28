@@ -10,9 +10,19 @@ export type StoreType = {
   getState: () => RootStateType
   dispatch: (action: any) => void
 }
+
+
+
+
 export type AsideStateType = {
   asideFriends: Array<AsideFriendsType>
 }
+
+
+
+
+
+
 export type AsideFriendsType = {
   id: number
   avatar: string
@@ -77,21 +87,13 @@ export type RootStateType = {
     },
     asideState: {
       asideFriends: [
-        {
-          id: 1,
+        {id: 1,
           avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT6Ghz_3vVX362NspWGVByszfbkVlJ77tisTQ&usqp=CAU',
-          name: 'Pavel'
-        },
-        {
-          id: 2,
+          name: 'Pavel'}, {id: 2,
           avatar: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg',
-          name: 'Vika'
-        },
-        {
-          id: 3,
+          name: 'Vika'}, {id: 3,
           avatar: 'https://tiktok-wiki.ru/wp-content/uploads/2020/05/avatarki-dlya-tik-toka1.jpg',
-          name: 'Alex'
-        }
+          name: 'Alex'}
       ]
     }
   },
