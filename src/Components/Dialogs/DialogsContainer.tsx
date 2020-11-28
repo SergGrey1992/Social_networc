@@ -3,12 +3,10 @@ import {MessagesPageType} from "../../redux/store";
 import {addMessageActionCreator} from "../../redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
 
-
 type DialogsPropsType = {
   messagesPage: MessagesPageType
   dispatch: (action: any) => void
 }
-
 
 export const DialogsContainer = (props: DialogsPropsType) => {
   const [valueTextarea, setValueTextarea] = useState("")
