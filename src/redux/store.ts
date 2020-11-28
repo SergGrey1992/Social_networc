@@ -33,11 +33,13 @@ export type PostType = {
 }
 export type ProfilePageType = {
   posts: Array<PostType>
+  newPostText: string
 }
 
 export type MessagesPageType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
+  newMessageText: string
 }
 
 export type RootStateType = {
@@ -46,14 +48,16 @@ export type RootStateType = {
   asideState: AsideStateType
 }
 
-const store: StoreType = {
+ const store: StoreType = {
   _state: {
     profilePage: {
       posts: [
         {id: 1, message: "My first post!", likesCount: 41},
         {id: 2, message: "Second post", likesCount: 22},
         {id: 3, message: 'I live React', likesCount: 31},
-        {id: 4, message: "Awesome!!!", likesCount: 421}],
+        {id: 4, message: "Awesome!!!", likesCount: 421}
+        ],
+      newPostText: ""
     },
     messagesPage: {
       messages: [
@@ -68,7 +72,8 @@ const store: StoreType = {
         {id: 3, name: "Pasha"},
         {id: 4, name: "Gleb"},
         {id: 5, name: "Vika"}
-      ]
+      ],
+      newMessageText: ""
     },
     asideState: {
       asideFriends: [

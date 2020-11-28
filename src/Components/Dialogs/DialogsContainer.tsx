@@ -1,37 +1,27 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react"
+import React, {ChangeEvent, useState, KeyboardEvent, Dispatch} from "react"
 import {MessagesPageType} from "../../redux/store";
-import {addMessageActionCreator} from "../../redux/dialogs_reducer";
+import {ActionType, addMessageActionCreator, changeMessageTextActionCreator} from "../../redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
+import {RootStoreType} from "../../redux/redux_store";
 
-
-type DialogsPropsType = {
-  messagesPage: MessagesPageType
-  dispatch: (action: any) => void
-}
-
-
-export const DialogsContainer = (props: DialogsPropsType) => {
-  const [valueTextarea, setValueTextarea] = useState("")
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValueTextarea(e.currentTarget.value)
+const mapStateToProps = (state: RootStoreType) => {
+  return {
+    messagesPage: state.dialogsReducer,
+    newMessageText: state.dialogsReducer.newMessageText
   }
-  const onClickHandlerButton = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
-      onClickHandler()
+  const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
+    return {
+      addMessage: (trimmedValue: string) => {
+        dispatch(addMessageActionCreator(trimmedValue))
+      },
+      changeMessageText: (trimmedValue: string) => {
+        dispatch(changeMessageTextActionCreator(trimmedValue))
+      }
     }
   }
-
-  const onClickHandler = () => {
-    const trimmedValue = valueTextarea.trim()
-    props.dispatch(addMessageActionCreator(trimmedValue))
-    setValueTextarea("")
-  }
-
-  return (<Dialogs valueTextarea={valueTextarea}
-                   onChange={onChange}
-                   onClickHandlerButton={onClickHandlerButton}
-                   onClickHandler={onClickHandler}
-                   messagesPage={props.messagesPage}
-    />
-  )
+  const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+  /*export default connect(mapStateToProps, mapDispatchToProps)(DialogsContainer)*/
 }
+export default DialogsContainer;
+

@@ -7,17 +7,21 @@ import style from "./Dialogs.module.css"
 
 type DialogsPropsType = {
   messagesPage: MessagesPageType
-  valueTextarea: string
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
-  onClickHandlerButton: (e: KeyboardEvent<HTMLTextAreaElement>) => void
-  onClickHandler: () => void
+  newMessageText: string
 }
 
 
 const Dialogs = (props: DialogsPropsType) => {
+
+
   let dialogsElement = props.messagesPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
 
   let messagesElement = props.messagesPage.messages.map(message => <Messages message={message.message}/>)
+
+  let onNewMessageChange = (e: any) => {
+    let body = e.currentTarget.value
+  }
+
   return (
     <div className={style.dialogs}>
 
@@ -29,10 +33,8 @@ const Dialogs = (props: DialogsPropsType) => {
         {messagesElement}
         <div>
           <div className={style.wrapperTextForm}>
-            <textarea value={props.valueTextarea}
-                      onChange={props.onChange}
-                      onKeyPress={props.onClickHandlerButton}/>
-            <button onClick={props.onClickHandler}>Add message</button>
+            <textarea />
+            <button >Add message</button>
           </div>
         </div>
       </div>
