@@ -5,11 +5,17 @@ import {RootStoreType} from "../../redux/redux_store";
 import {followAC, setUsersAC, unFollowAC} from "../../redux/users_reducer";
 
 
-const mapDispatchToProps = (dispatch: Dispatch<any>)=> {
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
   return {
-    followAC: (userID: number) => {dispatch(followAC(userID))},
-    unFollowAC: (userID: number) => {dispatch(unFollowAC(userID))},
-    setUsersAC: (users: any) => {dispatch(setUsersAC(users))}
+    follow: (userID: number) => {
+      dispatch(followAC(userID))
+    },
+    unFollow: (userID: number) => {
+      dispatch(unFollowAC(userID))
+    },
+    setUsers: (users: any) => {
+      dispatch(setUsersAC(users))
+    }
   }
 }
 

@@ -11,7 +11,6 @@ type SidebarPropsType = {
 }
 
 export const Sidebar = (props: SidebarPropsType) => {
-    debugger
     let friendsAsideElement = props.sideState.asideState.asideFriends.map(
       friends => <SideFriend id={friends.id}
                              name={friends.name}
