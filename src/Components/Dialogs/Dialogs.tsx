@@ -14,9 +14,9 @@ type DialogsPropsType = {
 
 
 const Dialogs = (props: DialogsPropsType) => {
-  let dialogsElement = props.messagesPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
+  let dialogsElement = props.messagesPage.dialogs.map(dialog => <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>)
 
-  let messagesElement = props.messagesPage.messages.map(message => <Messages message={message.message}/>)
+  let messagesElement = props.messagesPage.messages.map(message => <Messages key={message.id} message={message.message}/>)
 
   let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let body = e.currentTarget.value

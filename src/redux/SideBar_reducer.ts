@@ -27,7 +27,9 @@ let initialState: InitialStateType = {
 }
 
 const sideBarReducer = (state: InitialStateType = initialState): InitialStateType => {
-  return state
+  return {
+    ...state
+  }
 }
 
 export default sideBarReducer
