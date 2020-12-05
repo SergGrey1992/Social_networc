@@ -11,25 +11,26 @@ type usersPropsType = {
 	setUsers: (users: any) => void
 }
 
-export const Users = (props: usersPropsType) => {
+class Users extends React.Component<usersPropsType, {  }>{
 
-	debugger
-	if (props.users.length === 0) {
-
-		axios
-			.get("https://social-network.samuraijs.com/api/1.0/users")
-			.then(response => {
-				props.setUsers(response.data.items)
-				console.log(response)
-			}
-		)
-
+	 getUsers = () => {
+		if (this.props.users.length === 0) {
+			axios
+				.get("https://social-network.samuraijs.com/api/1.0/users")
+				.then(response => {
+						this.props.setUsers(response.data.items)
+						console.log(response)
+					}
+				)
+		}
 	}
 
-	return (
-		<div>
-			{
-				props.users.map(users => <div key={users.id}>
+	render () {
+		return (
+			<div>
+				<button onClick={this.getUsers} >Get Users</button>
+				{
+					this.props.users.map(users => <div key={users.id}>
           <span>
             <div>
               <img className={style.stylePhoto} src={users.photos.small != null ? users.photos.small : userPhoto} alt="#"/>
@@ -37,14 +38,14 @@ export const Users = (props: usersPropsType) => {
             <div>
               {users.followed
 								? <button onClick={() => {
-									props.unFollow(users.id)
+									this.props.unFollow(users.id)
 								}}>UnFollow</button>
 								: <button onClick={() => {
-									props.follow(users.id)
+									this.props.follow(users.id)
 								}}>Follow</button>}
             </div>
           </span>
-					<span>
+						<span>
             <span>
               <div>
                 {users.name}
@@ -53,13 +54,19 @@ export const Users = (props: usersPropsType) => {
                 {users.status}
             </div>
             </span>
-            {/*<span>
+							{/*<span>
               <div>{users.location.country}</div>
               <div>{users.location.city}</div>
             </span>*/}
           </span>
-				</div>)
-			}
-		</div>
-	)
+					</div>)
+				}
+			</div>
+		)
+	}
 }
+
+export default Users;
+	
+
+
