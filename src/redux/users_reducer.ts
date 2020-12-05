@@ -19,17 +19,16 @@ export type ActionType =
   ReturnType<typeof unFollowAC>
 
 export type usersType = {
-  id: number
-  photoUrl: string
-  followed: boolean
-  fullName: string
-  status: string
-  location: locationType
+	name: string
+	id: number
+	photos: photosType
+	status: string | null
+	followed: boolean
 }
 
-type locationType = {
-  city: string
-  country: string
+type photosType = {
+	small: string | null
+	large: string | null
 }
 
 export type InitialStateType = {
@@ -38,35 +37,22 @@ export type InitialStateType = {
 
 let initialState: InitialStateType = {
   users: [
-    {
-      id: 1,
-      photoUrl: "https://avatarko.ru/img/kartinka/8/multfilm_pokemon_pikachu_7720.jpg",
-      followed: false,
-      fullName: "Sergey",
-      status: "I am a boss",
-      location: {city: "Minsk", country: "Belarus"}
-    },
-    {
-      id: 2,
-      photoUrl: "https://avatarko.ru/img/kartinka/8/multfilm_pokemon_pikachu_7720.jpg",
-      followed: true,
-      fullName: "Kostia",
-      status: "I am a boss too",
-      location: {city: "Mogilev", country: "Belarus"}
-    },
-    {
-      id: 3,
-      photoUrl: "https://avatarko.ru/img/kartinka/8/multfilm_pokemon_pikachu_7720.jpg",
-      followed: false,
-      fullName: "Dasha",
-      status: "I am a big boss",
-      location: {city: "Minsk", country: "Belarus"}
-    }
+		/*{
+			"name": "Shubert",
+			"id": 1,
+			"photos": {
+				"small": null,
+				"large": null
+			},
+			"status": null,
+			"followed": false
+		}*/
+
   ]
 }
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
-  debugger
+
   switch (action.type) {
 
 
@@ -92,9 +78,14 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
         })
       }
     case SET_USERS:
-      return {...state, users: [...state.users, ...action.users]}
+      return {
+      	...state,
+				users: [
+					...state.users, ...action.users
+				]
+      }
     default:
-      return {...state}
+      return state
   }
 }
 export default usersReducer;

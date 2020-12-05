@@ -10,18 +10,9 @@ export type StoreType = {
   getState: () => RootStateType
   dispatch: (action: any) => void
 }
-
-
-
-
 export type AsideStateType = {
   asideFriends: Array<AsideFriendsType>
 }
-
-
-
-
-
 
 export type AsideFriendsType = {
   id: number
