@@ -12,7 +12,6 @@ type usersPropsType = {
 }
 
 class Users extends React.Component<usersPropsType, {  }>{
-
 	 getUsers = () => {
 		if (this.props.users.length === 0) {
 			axios
