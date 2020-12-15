@@ -13,10 +13,10 @@ export const setUsersAC = (users: Array<usersType>) => {
 	return {type: SET_USERS, users} as const
 }
 export const setCurrentPageAC = (currentPageNumber: number) => {
-	return { type: SET_CURRENT_PAGE, currentPageNumber } as const
+	return {type: SET_CURRENT_PAGE, currentPageNumber} as const
 }
 export const setTotalCountAC = (totalCount: number) => {
-	return { type: SET_TOTAL_COUNT, totalCount } as const
+	return {type: SET_TOTAL_COUNT, totalCount} as const
 }
 export type ActionType =
 	ReturnType<typeof setUsersAC> |
@@ -43,7 +43,7 @@ export type InitialStateType = {
 }
 let initialState: InitialStateType = {
 	users: [],
-	pageSize: 10,
+	pageSize: 20,
 	totalUsersCount: 20,
 	currentPage: 1
 }
@@ -77,7 +77,7 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
 			return {
 				...state, currentPage: action.currentPageNumber
 			}
-			case SET_TOTAL_COUNT:
+		case SET_TOTAL_COUNT:
 			return {
 				...state, totalUsersCount: action.totalCount
 			}

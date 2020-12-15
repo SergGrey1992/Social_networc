@@ -5,7 +5,8 @@ import Navbar from "./Components/NavBar/NavBar";
 import {Route} from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import Profile from "./Components/Profile/Profile";
-import {UsersContainer} from "./Components/Users/UsersContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
+
 
 
 /*type AppStatePropsType = {
