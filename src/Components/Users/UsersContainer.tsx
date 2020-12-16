@@ -5,14 +5,13 @@ import {
 	follow,
 	setCurrentPage,
 	setTotalCount,
-	setUsers, toggleIsFetching,
+	setUsers,
+	toggleIsFetching,
 	unFollow,
 	usersType
 } from "../../redux/users_reducer";
-import {Dispatch} from 'redux';
 import axios from "axios";
 import {Users} from "./Users";
-import preLoader from "../../assect/preLoader.svg"
 import {PreLoader} from "../../common/PreLoader/PreLoader";
 
 type usersPropsType = {
