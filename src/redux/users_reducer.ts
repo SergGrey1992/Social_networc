@@ -3,27 +3,32 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
-export const followAC = (userID: number) => {
+const TOGGELE_IS_FETCHING = "TOGGELE_IS_FETCHING";
+export const follow = (userID: number) => {
 	return {type: FOLLOW, userID} as const
 }
-export const unFollowAC = (userID: number) => {
+export const unFollow = (userID: number) => {
 	return {type: UNFOLLOW, userID} as const
 }
-export const setUsersAC = (users: Array<usersType>) => {
+export const setUsers = (users: Array<usersType>) => {
 	return {type: SET_USERS, users} as const
 }
-export const setCurrentPageAC = (currentPageNumber: number) => {
+export const setCurrentPage = (currentPageNumber: number) => {
 	return {type: SET_CURRENT_PAGE, currentPageNumber} as const
 }
-export const setTotalCountAC = (totalCount: number) => {
+export const setTotalCount = (totalCount: number) => {
 	return {type: SET_TOTAL_COUNT, totalCount} as const
 }
+export const toggleIsFetching = (isFetching: boolean) => {
+	return {type: TOGGELE_IS_FETCHING, isFetching} as const
+}
 export type ActionType =
-	ReturnType<typeof setUsersAC> |
-	ReturnType<typeof followAC> |
-	ReturnType<typeof unFollowAC> |
-	ReturnType<typeof setCurrentPageAC> |
-	ReturnType<typeof setTotalCountAC>
+	ReturnType<typeof setUsers> |
+	ReturnType<typeof follow> |
+	ReturnType<typeof unFollow> |
+	ReturnType<typeof setCurrentPage> |
+	ReturnType<typeof setTotalCount> |
+	ReturnType<typeof toggleIsFetching>
 export type usersType = {
 	name: string
 	id: number
@@ -40,12 +45,14 @@ export type InitialStateType = {
 	pageSize: number
 	totalUsersCount: number
 	currentPage: number
+	isFetching: boolean
 }
 let initialState: InitialStateType = {
 	users: [],
 	pageSize: 20,
 	totalUsersCount: 20,
-	currentPage: 1
+	currentPage: 1,
+	isFetching: false
 }
 const usersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
 	switch (action.type) {
@@ -80,6 +87,10 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionType
 		case SET_TOTAL_COUNT:
 			return {
 				...state, totalUsersCount: action.totalCount
+			}
+		case TOGGELE_IS_FETCHING:
+			return {
+				...state, isFetching: action.isFetching
 			}
 		default:
 			return state
