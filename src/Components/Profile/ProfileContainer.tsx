@@ -10,14 +10,13 @@ export interface ProfilePropsType extends RouteComponentProps<{userId: string}> 
 	children?: ReactNode
 	profile: Array<ProfilePageTypeAPI>
 	setUserProfile: (profile: any) => void
-	/*history: any
-	location: any
-	match: any*/
 }
 class ProfileContainer extends React.Component<ProfilePropsType> {
 	componentDidMount() {
-		debugger
-		const userId = this.props.match.params.userId
+		let userId = this.props.match.params.userId
+		if (!userId) {
+			userId = "1"
+		}
 		axios
 			.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId )
 			.then(response => {
