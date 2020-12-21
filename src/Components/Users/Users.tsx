@@ -52,7 +52,7 @@ export const Users = (props: UsersPropsType) => {
 											}
 										})
 										.then(response => {
-											if (response.data.resultCode == 0 ) {
+											if (response.data.resultCode === 0 ) {
 												props.unFollow(users.id)
 											}
 										});
@@ -66,7 +66,7 @@ export const Users = (props: UsersPropsType) => {
 											}
 										})
 										.then(response => {
-											if (response.data.resultCode == 0 ) {
+											if (response.data.resultCode === 0 ) {
 												props.follow(users.id)
 											}
 										});
