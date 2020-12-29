@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -5,11 +8,10 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
 const TOGGELE_IS_FETCHING = "TOGGELE_IS_FETCHING";
 const TOGGELE_IS_FOLLOWING_PROGRESS = "TOGGELE_IS_FOLLOWING_PROGRESS";
-
-export const follow = (userID: number) => {
+export const followSuccess = (userID: number) => {
 	return {type: FOLLOW, userID} as const
 }
-export const unFollow = (userID: number) => {
+export const unFollowSuccess = (userID: number) => {
 	return {type: UNFOLLOW, userID} as const
 }
 export const setUsers = (users: Array<usersType>) => {
@@ -27,10 +29,46 @@ export const toggleIsFetching = (isFetching: boolean) => {
 export const toggleFollowingProgress = (isFetching: boolean, userID: number) => {
 	return {type: TOGGELE_IS_FOLLOWING_PROGRESS, isFetching, userID} as const
 }
+export const getUsers = (currentPage: number, pageSize: number) => {
+	return (dispatch: Dispatch) => {
+		dispatch(toggleIsFetching(true))
+		usersAPI.getUsers(currentPage, pageSize).then(data => {
+				dispatch(toggleIsFetching(false))
+				dispatch(setUsers(data.items))
+				dispatch(setTotalCount(data.totalCount))
+			}
+		)
+	}
+}
+export const follow = (usersID: number) => {
+	return (dispatch: Dispatch) => {
+		dispatch(toggleFollowingProgress(true, usersID))
+		usersAPI.followedUser(usersID)
+			.then(data => {
+				if (data.resultCode === 0) {
+					dispatch(followSuccess(usersID))
+				}
+				dispatch(toggleFollowingProgress(false, usersID))
+			})
+	}
+}
+export const unFollow = (usersID: number) => {
+	return (dispatch: Dispatch) => {
+		dispatch(toggleFollowingProgress(true, usersID))
+		usersAPI.unFollowedUser(usersID)
+			.then(data => {
+				if (data.resultCode === 0) {
+					dispatch(unFollowSuccess(usersID))
+				}
+				dispatch(toggleFollowingProgress(false, usersID))
+			})
+	}
+}
+
 export type ActionType =
 	ReturnType<typeof setUsers> |
-	ReturnType<typeof follow> |
-	ReturnType<typeof unFollow> |
+	ReturnType<typeof followSuccess> |
+	ReturnType<typeof unFollowSuccess> |
 	ReturnType<typeof setCurrentPage> |
 	ReturnType<typeof setTotalCount> |
 	ReturnType<typeof toggleIsFetching> |
