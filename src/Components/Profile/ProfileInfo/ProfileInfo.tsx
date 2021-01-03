@@ -11,13 +11,13 @@ export const ProfileInfo = (props: PropsType) => {
 		<h1 className={style.styleH1}>----Profile----</h1>
 		<div>
 			{
-				props.profile.map(prof =>
-					<div>
+				props.profile.map((prof, index) =>
+					<div key={index}>
 						{prof.fullName}
 						<div>{prof.aboutMe}</div>
 						<div>{prof.contacts.facebook}</div>
 						<div>{prof.contacts.instagram}</div>
-						<img src={prof.photos.small != null ? prof.photos.small : userPhoto} alt="#"/>
+						<img className={style.avatar} src={prof.photos.small != null ? prof.photos.small : userPhoto} alt="#"/>
 					</div>
 
 				)}

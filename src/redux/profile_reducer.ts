@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 const ADD_POST = "ADD_POST";
 const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -9,6 +12,13 @@ export const changePostTextActionCreator = (valueTextarea: string) => {
 }
 export const setUserProfile = (profile: any) => {
 	return {type: SET_USER_PROFILE, profile} as const
+}
+export const getProfile = (userId: string) => {
+	return (dispatch: Dispatch) => {
+		usersAPI.getProfile(userId).then(data => {
+			dispatch(setUserProfile(data))
+		})
+	}
 }
 export type ActionType =
 	ReturnType<typeof addPostActionCreator> |
@@ -77,7 +87,6 @@ let initialState = {
 			large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
 		},}*/]
 }
-
 const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
 	switch (action.type) {
 		case ADD_POST: {
@@ -93,9 +102,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 			}
 		}
 		case SET_USER_PROFILE: {
-
 			return {
-
 				...state, profile: [action.profile]
 			}
 		}

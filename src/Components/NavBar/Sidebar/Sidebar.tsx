@@ -12,7 +12,7 @@ type SidebarPropsType = {
 
 export const Sidebar = (props: SidebarPropsType) => {
     let friendsAsideElement = props.sideState.asideState.asideFriends.map(
-      friends => <SideFriend id={friends.id}
+      (friends, index) => <SideFriend key={index} id={friends.id}
                              name={friends.name}
                              avatar={friends.avatar}/>
                              )

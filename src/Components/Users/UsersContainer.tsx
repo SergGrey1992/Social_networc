@@ -28,6 +28,7 @@ type usersPropsType = {
 	//toggleIsFetching: (isFetching: boolean) => void
 	getUsers: (currentPage: number, pageSize: number) => void
 }
+
 class UsersContainer extends React.Component<usersPropsType, {}> {
 	componentDidMount() {
 		this.props.getUsers(this.props.currentPage, this.props.pageSize)
