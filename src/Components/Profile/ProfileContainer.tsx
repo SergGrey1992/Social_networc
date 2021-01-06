@@ -2,13 +2,13 @@ import React, {ReactNode} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStoreType} from "../../redux/redux_store";
-import {getProfile, ProfilePageTypeAPI, setUserProfile} from "../../redux/profile_reducer";
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {getProfile, ProfilePageTypeAPI} from "../../redux/profile_reducer";
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 
 export interface ProfilePropsType extends RouteComponentProps<{ userId: string }> {
 	children?: ReactNode
 	profile: Array<ProfilePageTypeAPI>
-	setUserProfile: (profile: any) => void
+	auth: boolean
 	getProfile: (userId: string) => void
 }
 class ProfileContainer extends React.Component<ProfilePropsType> {
@@ -18,29 +18,18 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 			userId = "1"
 		}
 		this.props.getProfile(userId)
-		/*	let userId = this.props.match.params.userId
-			if (!userId) {
-				userId = "1"
-			}
-			usersAPI.getProfile(userId).then(data => {
-				this.props.setUserProfile(data)
-			})*/
-		/*axios
-			.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId )
-			.then(response => {
-				this.props.setUserProfile(response.data)
-				console.log(response)
-			});*/
 	}
 
 	render() {
+		if(!this.props.auth) return <Redirect to={"/login"} />
 		return (
-			<Profile {...this.props} profile={this.props.profile} setUserProfile={setUserProfile}/>
+			<Profile {...this.props} profile={this.props.profile} />
 		)
 	}
 }
 const mapStateToProps = (state: RootStoreType) => ({
-	profile: state.profileReducer.profile
+	profile: state.profileReducer.profile,
+	auth: state.auth.isAuth
 })
 const WithUrlDataContainerComponent = withRouter<ProfilePropsType & RouteComponentProps, any>(ProfileContainer)
-export default connect(mapStateToProps, {setUserProfile, getProfile})(WithUrlDataContainerComponent)
+export default connect(mapStateToProps, { getProfile})(WithUrlDataContainerComponent)

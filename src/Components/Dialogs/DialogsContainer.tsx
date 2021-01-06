@@ -7,7 +7,8 @@ import {RootStoreType} from "../../redux/redux_store";
 const mapStateToProps = (state: RootStoreType) => {
   return {
     messagesPage: state.dialogsReducer,
-    newMessageText: state.dialogsReducer.newMessageText
+    newMessageText: state.dialogsReducer.newMessageText,
+    isAuth: state.auth.isAuth
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
