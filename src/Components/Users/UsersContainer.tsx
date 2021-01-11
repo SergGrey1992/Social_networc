@@ -19,13 +19,10 @@ type usersPropsType = {
 	currentPage: number
 	followSuccess: (userID: number) => void
 	unFollowSuccess: (userID: number) => void
-	//setUsers: (users: Array<usersType>) => void
 	setCurrentPage: (currentPageNumber: number) => void
-	//setTotalCount: (totalCount: number) => void
 	isFetching: boolean
 	followingInProgress: Array<number>
 	toggleFollowingProgress: (isFetching: boolean, userID: number) => void
-	//toggleIsFetching: (isFetching: boolean) => void
 	getUsers: (currentPage: number, pageSize: number) => void
 }
 
@@ -36,13 +33,6 @@ class UsersContainer extends React.Component<usersPropsType, {}> {
 
 	onPageChanged = (currentPageNumber: number) => {
 		this.props.getUsers(currentPageNumber, this.props.pageSize)
-		/*this.props.setCurrentPage(currentPageNumber)
-		this.props.toggleIsFetching(true)
-		usersAPI.getUsers(currentPageNumber, this.props.pageSize).then(data => {
-				this.props.toggleIsFetching(false)
-				this.props.setUsers(data.items)
-			}
-		)*/
 	}
 
 	render() {

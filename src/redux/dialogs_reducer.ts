@@ -22,7 +22,7 @@ type MessageType = {
   message: string
 }
 
-type InitialStateType = {
+export type InitialStateType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
   newMessageText: string

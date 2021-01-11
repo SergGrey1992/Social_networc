@@ -6,12 +6,12 @@ import style from "./Dialogs.module.css"
 import { Redirect } from "react-router-dom";
 
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
   messagesPage: MessagesPageType
   newMessageText: string
   addMessage: () => void
   changeMessageText: (trimmedValue: string) => void
-  isAuth: boolean
+  auth: boolean
 }
 
 
@@ -27,7 +27,7 @@ const Dialogs = (props: DialogsPropsType) => {
   let addNewMessage = () => {
     props.addMessage()
   }
-  if (!props.isAuth) return <Redirect to={"/login"} />
+  if (!props.auth) return <Redirect to={"/login"} />
 
   return (
     <div className={style.dialogs}>
