@@ -2,9 +2,12 @@ import React from 'react';
 import style from './DescriptionBlock.module.css';
 import {ProfilePageTypeAPI} from "../../../redux/profile_reducer";
 import userPhoto from "../../../assect/user_Photo.jpg";
+import {ProfileStatus} from "./ProfileStatus"
 
 type PropsType = {
 	profile: Array<ProfilePageTypeAPI>
+	status: string
+	updateStatus: (status: string) => string
 }
 export const ProfileInfo = (props: PropsType) => {
 	return <div className={style.wrapperDescription}>
@@ -15,16 +18,18 @@ export const ProfileInfo = (props: PropsType) => {
 					<div key={index}>
 						{prof.fullName}
 						<div>{prof.aboutMe}</div>
+
 						<div>{prof.contacts.facebook}</div>
 						<div>{prof.contacts.instagram}</div>
 						<img className={style.avatar} src={prof.photos.small != null ? prof.photos.small : userPhoto} alt="#"/>
 					</div>
-
 				)}
-			<img className={style.avatar} alt="ava"
-					 src='https://pm1.narvii.com/7171/f6f1c4463bbd9959052b699672858647f17660d3r1-264-250v2_00.jpg'/>
 		</div>
 		<div className={style.description}>
+			<ProfileStatus
+				status={props.status}
+				updateStatus={props.updateStatus}
+			/>
 			Description
 		</div>
 	</div>

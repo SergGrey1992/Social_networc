@@ -1,9 +1,11 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = "ADD_POST";
 const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
+const UPDATE_STATUS = "UPDATE_STATUS";
 export const addPostActionCreator = () => {
 	return {type: ADD_POST} as const
 }
@@ -13,6 +15,12 @@ export const changePostTextActionCreator = (valueTextarea: string) => {
 export const setUserProfile = (profile: any) => {
 	return {type: SET_USER_PROFILE, profile} as const
 }
+export const setUserStatus = (status: string) => {
+	return {type: SET_STATUS, status} as const
+}
+export const updateUserStatus = (status: string) => {
+	return {type: UPDATE_STATUS, status} as const
+}
 export const getProfile = (userId: string) => {
 	return (dispatch: Dispatch) => {
 		usersAPI.getProfile(userId).then(data => {
@@ -20,10 +28,30 @@ export const getProfile = (userId: string) => {
 		})
 	}
 }
+export const getStatus = (userId: string) => {
+	return (dispatch: Dispatch) => {
+		profileAPI.getStatus(userId).then(res => {
+			dispatch(setUserStatus(res.data))
+		})
+	}
+}
+export const updateStatus = (status: string) => {
+	return (dispatch: Dispatch) => {
+		profileAPI.updateStatus(status)
+			.then(res => {
+				if (res.data.resultCode === 0) {
+					debugger
+					dispatch(setUserStatus(status))
+				}
+			})
+	}
+}
 export type ActionType =
 	ReturnType<typeof addPostActionCreator> |
 	ReturnType<typeof changePostTextActionCreator> |
-	ReturnType<typeof setUserProfile>
+	ReturnType<typeof setUserProfile> |
+	ReturnType<typeof updateUserStatus> |
+	ReturnType<typeof setUserStatus>
 type PostType = {
 	id: number
 	message: string
@@ -56,8 +84,9 @@ type InitialStateType = {
 	posts: Array<PostType>
 	newPostText: string
 	profile: Array<ProfilePageTypeAPI>
+	status: string
 }
-let initialState = {
+let initialState: InitialStateType = {
 	posts: [
 		{id: 1, message: "My first post!", likesCount: 41},
 		{id: 2, message: "Second post", likesCount: 22},
@@ -65,27 +94,8 @@ let initialState = {
 		{id: 4, message: "Awesome!!!", likesCount: 421}
 	],
 	newPostText: "",
-	profile: [/*
-		{
-		aboutMe: "я круто чувак 1001%",
-		contacts: {
-			facebook: "facebook.com",
-			website: null,
-			vk: "vk.com/dimych",
-			twitter: "https://twitter.com/@sdf",
-			instagram: "instagra.com/sds",
-			youtube: null,
-			github: "github.com",
-			mainLink: null
-		},
-		lookingForAJob: true,
-		lookingForAJobDescription: "не ищу, а дурачусь",
-		fullName: "samurai dimych",
-		userId: 2,
-		photos: {
-			small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
-			large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
-		},}*/]
+	profile: [],
+	status: "Укажите статус"
 }
 const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
 	switch (action.type) {
@@ -104,6 +114,18 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 		case SET_USER_PROFILE: {
 			return {
 				...state, profile: [action.profile]
+			}
+		}
+		case SET_STATUS: {
+			return {
+				...state,
+				status: action.status
+			}
+		}
+		case UPDATE_STATUS: {
+			return {
+				...state,
+				status: action.status
 			}
 		}
 		default:

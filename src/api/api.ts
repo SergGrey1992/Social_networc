@@ -22,14 +22,25 @@ export const usersAPI = {
 			.then(response => response.data);
 	},
 	getProfile(userId: string){
-		return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId )
-			.then(response => response.data);
+		return profileAPI.getProfile(userId)
 	}
 }
 
 export const authAPI = {
 	me () {
 		return instance.get("auth/me")
+	}
+}
+export const profileAPI ={
+	getProfile(userId: string){
+		return instance.get(`profile/`+ userId )
+			.then(response => response.data);
+	},
+	getStatus(userId: string) {
+		return instance.get(`profile/status/`+ userId )
+	},
+	updateStatus(status: string){
+		return instance.put(`profile/status/`, {status} )
 	}
 }
 

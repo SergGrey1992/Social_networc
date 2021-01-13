@@ -36,12 +36,14 @@ export type ProfilePageType = {
   posts: Array<PostType>
   newPostText: string
   profile:  Array<ProfilePageTypeAPI>
+  status:string
 }
 
 export type MessagesPageType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
   newMessageText: string
+
 }
 
 export type RootStateType = {
@@ -81,7 +83,8 @@ export type RootStateType = {
             small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
             large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
           },}
-      ]
+      ],
+      status: ''
     },
     messagesPage: {
       messages: [
