@@ -1,4 +1,5 @@
 import axios from "axios";
+import {formDataType} from "../Components/Login/Login";
 
 const instance = axios.create({
 	withCredentials: true,
@@ -7,53 +8,59 @@ const instance = axios.create({
 		"API-KEY": "1eda0634-107a-4512-9684-9a0c57ff42df"
 	},
 })
-
 export const usersAPI = {
 	getUsers(currentPage: number = 1, pageSize: number = 10) {
-		return  instance.get(`users?page=${currentPage}&count=${pageSize}`)
+		return instance.get(`users?page=${currentPage}&count=${pageSize}`)
 			.then(response => response.data) //promises
 	},
 	unFollowedUser(id: number) {
 		return instance.delete(`follow/${id}`)
 			.then(response => response.data);
 	},
-	followedUser(id: number){
+	followedUser(id: number) {
 		return instance.post(`follow/${id}`)
 			.then(response => response.data);
 	},
-	getProfile(userId: string){
+	getProfile(userId: string) {
 		return profileAPI.getProfile(userId)
 	}
 }
 
-export const authAPI = {
-	me () {
-		return instance.get("auth/me")
-	},
-
+type authAPIType<T> = {
+	resultCode: number
+	messages: string[]
+	data: T
 }
-export const profileAPI ={
-	getProfile(userId: string){
-		return instance.get(`profile/`+ userId )
+//userId: 2
+
+// id: 2,
+// 	email: 'blabla@bla.bla',
+// 	login: 'samurai'
+
+export const authAPI = {
+	me() {
+		return instance.get<authAPIType<{ id: number, email: string, login: string }>>("auth/me")
+	},
+	login(formData: formDataType) {
+		return instance.post<authAPIType< { userId: number } >>("/auth/login", formData)
+	}
+}
+export const profileAPI = {
+	getProfile(userId: string) {
+		return instance.get(`profile/` + userId)
 			.then(response => response.data);
 	},
 	getStatus(userId: string) {
-		return instance.get(`profile/status/`+ userId )
+		return instance.get(`profile/status/` + userId)
 	},
-	updateStatus(status: string){
-		return instance.put(`profile/status/`, {status} )
+	updateStatus(status: string) {
+		return instance.put(`profile/status/`, {status})
 	}
 }
-
-
-
-
 /*export const getProfile = (userId: number) => {
 	return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId )
 		.then(response => response.data);
 }*/
-
-
 /*
 export const getUsers = (currentPage: number = 1, pageSize: number = 10) => {
 	 return  instance.get(`users?page=${currentPage}&count=${pageSize}`)
