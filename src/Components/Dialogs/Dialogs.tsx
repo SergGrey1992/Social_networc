@@ -4,6 +4,8 @@ import Messages from "./Messages/Messages";
 import {MessagesPageType} from "../../redux/store";
 import style from "./Dialogs.module.css"
 import { Redirect } from "react-router-dom";
+import DialogsContainer from "./DialogsContainer";
+import DialogsMessageContainer from "./DialogsMessageContainer";
 
 
 export type DialogsPropsType = {
@@ -20,13 +22,6 @@ const Dialogs = (props: DialogsPropsType) => {
 
   let messagesElement = props.messagesPage.messages.map(message => <Messages key={message.id} message={message.message}/>)
 
-  let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    let body = e.currentTarget.value
-    props.changeMessageText(body)
-  }
-  let addNewMessage = () => {
-    props.addMessage()
-  }
   if (!props.auth) return <Redirect to={"/login"} />
 
   return (
@@ -40,10 +35,7 @@ const Dialogs = (props: DialogsPropsType) => {
         {messagesElement}
         <div>
           <div className={style.wrapperTextForm}>
-            <textarea value={props.newMessageText}
-                      onChange={onNewMessageChange}
-            />
-            <button onClick={addNewMessage} >Add message</button>
+            <DialogsMessageContainer/>
           </div>
         </div>
       </div>

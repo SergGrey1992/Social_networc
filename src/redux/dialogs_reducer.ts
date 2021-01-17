@@ -1,8 +1,8 @@
-export const addMessageActionCreator = () => {
+export const addMessage = () => {
   return {type: ADD_MESSAGE} as const
 }
 
-export const changeMessageTextActionCreator = (valueTextarea: string) => {
+export const changeMessageText = (valueTextarea: string) => {
   return {type: CHANGE_MESSAGE_TEXT, newMessageText: valueTextarea} as const
 }
 
@@ -10,8 +10,8 @@ const CHANGE_MESSAGE_TEXT = "CHANGE_MESSAGE_TEXT"
 const ADD_MESSAGE = "ADD_MESSAGE";
 
 export type ActionType =
-  ReturnType<typeof addMessageActionCreator> |
-  ReturnType<typeof changeMessageTextActionCreator>
+  ReturnType<typeof addMessage> |
+  ReturnType<typeof changeMessageText>
 
 type DialogType = {
   id: number

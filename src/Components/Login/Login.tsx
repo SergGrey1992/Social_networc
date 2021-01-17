@@ -30,7 +30,7 @@ export const Login: React.FC< IPropsType> = (
 		<div>
 			<h1>Login</h1>
 			<LoginReduxForm onSubmit={onSubmit} {...props} />
-
+			{props.errorBool ? <div>{props.errorMessages}123</div> : " " }
 		</div>
 	)
 }
