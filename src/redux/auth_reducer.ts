@@ -1,16 +1,18 @@
 import {Dispatch} from "redux";
-import { ThunkDispatch } from "redux-thunk";
+import {ThunkDispatch} from "redux-thunk";
 import {authAPI} from "../api/api";
 import {formDataType} from "../Components/Login/Login";
-import { RootStoreType } from "./redux_store";
+import {RootStoreType} from "./redux_store";
 
 const SET_USER_DATA = "SET_USER_DATA"
 const LOGIN_ME = "LOGIN_ME"
+const LOG_OUT = "LOG_OUT"
 const ERROR_MESSAGE = "ERROR_MESSAGE"
 
 export const setUserData = (userId: number | null, email: string | null, login: string | null) => {
 	return {type: SET_USER_DATA, data: {userId, email, login} } as const}
-export const loginMe = () => ({type: LOGIN_ME,   }as const)
+export const loginMe = () => ({type: LOGIN_ME}as const)
+export const logOut = () => ({type: LOG_OUT}as const)
 export const setError = (messError: string) => ({type: ERROR_MESSAGE, messError }as const)
 
 export const getAuthUserData = () => {
@@ -29,22 +31,31 @@ export const getLoginMe = (formData: formDataType) => {
 		authAPI.login(formData)
 			.then( (res)=> {
 				if (res.data.resultCode === 1) {
-					//let messError = res.data.messages[0]
 					let messError = res.data.messages[0]
 					dispatch(setError(messError))
 					console.log(res.data.messages)
 				}
 				if(res.data.resultCode === 0) {
-					//let {userId} = res.data.data
 					dispatch(getAuthUserData())
 				}
 			})
 	}
 }
 
+export const logOutMe = () => {
+	return (dispatch: Dispatch) => {
+		authAPI.logOut()
+			.then(()=>{
+				dispatch(logOut())
+			})
+	}
+
+}
+
 export type ActionType =
 	ReturnType<typeof setUserData> |
 	ReturnType<typeof setError> |
+	ReturnType<typeof logOut> |
 	ReturnType<typeof loginMe>
 
 export type InitialStateType = {
@@ -70,6 +81,12 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 				...state,
 				...action.data,
 				isAuth: true
+			}
+		}
+		case LOG_OUT: {
+			return {
+				...state,
+				isAuth: false
 			}
 		}
 		case ERROR_MESSAGE : {

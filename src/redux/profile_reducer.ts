@@ -6,10 +6,10 @@ const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
-export const addPostActionCreator = () => {
-	return {type: ADD_POST} as const
+export const addPost = (formData: string) => {
+	return {type: ADD_POST, formData} as const
 }
-export const changePostTextActionCreator = (valueTextarea: string) => {
+export const changePostText = (valueTextarea: string) => {
 	return {type: CHANGE_POST_TEXT, newPostText: valueTextarea} as const
 }
 export const setUserProfile = (profile: any) => {
@@ -47,8 +47,8 @@ export const updateStatus = (status: string) => {
 	}
 }
 export type ActionType =
-	ReturnType<typeof addPostActionCreator> |
-	ReturnType<typeof changePostTextActionCreator> |
+	ReturnType<typeof addPost> |
+	ReturnType<typeof changePostText> |
 	ReturnType<typeof setUserProfile> |
 	ReturnType<typeof updateUserStatus> |
 	ReturnType<typeof setUserStatus>
@@ -102,7 +102,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 		case ADD_POST: {
 			return {
 				...state,
-				posts: [...state.posts, {id: 5, message: state.newPostText, likesCount: 0}]
+				posts: [...state.posts, {id: 5, message: action.formData, likesCount: 0}]
 			}
 		}
 		case CHANGE_POST_TEXT: {

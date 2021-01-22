@@ -1,26 +1,33 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {addMessage, changeMessageText} from "../../redux/dialogs_reducer";
+import { Textarea } from "../../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/vaidators";
+
+const maxLength10 = maxLengthCreator(10)
 
 type formDataType = {
 	message: string
 }
-type DialogsMessageTextareaPropsType = {
+type IPropsType = {
 	newMessageText: string
 	changeMessageText: (trimmedValue: string) => void
-	addMessage: () => void
+	addMessage: ( messageText: string ) => void
 }
-export const DialogsMessageTextarea: React.FC<DialogsMessageTextareaPropsType> = (
+export const DialogsMessageTextarea: React.FC<IPropsType> = (
 	{
-		 ...props
+		addMessage, ...props
 	}
 ) => {
+
+
 	const onSubmit = (formData: formDataType) => {
+		addMessage(formData.message)
+		formData.message = ''
 		console.log(formData)
 	}
 	return (
 		<div>
-			<MessageReduxForm onSubmit={onSubmit} {...props}/>
+			<MessageReduxForm onSubmit={onSubmit} {...props} />
 		</div>
 	)
 }
@@ -29,19 +36,16 @@ const MessageForm: React.FC<InjectedFormProps<formDataType>> = (
 		handleSubmit
 	}
 ) => {
-	let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		let body = e.currentTarget.value
-		changeMessageText(body)
-	}
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field
 				type="text"
 				name={'message'}
-				component={'textarea'}
-				onChange={onNewMessageChange}
+				component={Textarea}
+				validate={[required, maxLength10]}
+				placeholder={'Message text'}
 			/>
-			<button onClick={addMessage}>Add message</button>
+			<button>Add message</button>
 		</form>
 	)
 }

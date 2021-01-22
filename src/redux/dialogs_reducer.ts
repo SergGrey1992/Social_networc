@@ -1,5 +1,5 @@
-export const addMessage = () => {
-  return {type: ADD_MESSAGE} as const
+export const addMessage = ( formData: string ) => {
+  return {type: ADD_MESSAGE, formData} as const
 }
 
 export const changeMessageText = (valueTextarea: string) => {
@@ -46,12 +46,11 @@ let initialState = {
 }
 
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
-
   switch (action.type) {
     case ADD_MESSAGE:
       return {
         ...state,
-        messages: [...state.messages, {id: 5, message: state.newMessageText}],
+        messages: [...state.messages, {id: 5, message: action.formData}],
         newMessageText: ''
       }
     case CHANGE_MESSAGE_TEXT:

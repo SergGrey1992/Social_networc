@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 // reduxForm from "redux-form"; => not work
 // {reduxForm} from "redux-form"; => work
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import { Input } from "../../common/FormsControls/FormsControls";
+import { required } from "../../utils/validators/vaidators";
 
 export type formDataType = {
 	email: string
@@ -42,10 +44,10 @@ export const LoginForm: React.FC<InjectedFormProps<formDataType> > = (
 	return (
 		<form onSubmit={handleSubmit}>
 			<div>
-				<Field type="text" placeholder={"email"} name={'email'} component={'input'}/>
+				<Field type="text" placeholder={"email"} name={'email'} component={Input} validate={[required]}/>
 			</div>
 			<div>
-				<Field type="text" placeholder={"Password"} name={'password'} component={'input'}/>
+				<Field type="text" placeholder={"Password"} name={'password'} component={Input} validate={[required]}/>
 			</div>
 			<div>
 				<Field type="checkbox" name={"rememberMe"} component={'input'}/>remember me

@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import {connect} from "react-redux";
 import Header from './Header';
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {getAuthUserData, setUserData} from "../../redux/auth_reducer";
+import {getAuthUserData, logOutMe, setUserData} from "../../redux/auth_reducer";
 import {RootStoreType} from "../../redux/redux_store";
 
 export interface HeaderPropsType extends RouteComponentProps<any> {
@@ -13,6 +13,7 @@ export interface HeaderPropsType extends RouteComponentProps<any> {
 	email: string | null
 	isAuth: boolean
 	getAuthUserData: () => void
+	logOutMe: () => void
 }
 export class HeaderContainer extends React.Component<HeaderPropsType, {}> {
 	componentDidMount() {
@@ -39,4 +40,4 @@ const mapStateToProps = (state: RootStoreType) => ({
 	isAuth: state.auth.isAuth
 })
 const WithUrlDataContainerComponent = withRouter<HeaderPropsType & RouteComponentProps, any>(HeaderContainer)
-export default connect(mapStateToProps, {setUserData, getAuthUserData})(WithUrlDataContainerComponent)
+export default connect(mapStateToProps, {setUserData, getAuthUserData, logOutMe})(WithUrlDataContainerComponent)
