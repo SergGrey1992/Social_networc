@@ -12,6 +12,7 @@ export interface ProfilePropsType extends RouteComponentProps<{ userId: string }
 	profile: Array<ProfilePageTypeAPI>
 	auth: boolean
 	status: string
+	authorizedUserId: string
 	getProfile: (userId: string) => void
 	getStatus: (userId: string) => string
 	updateStatus: (status: string) => string
@@ -20,7 +21,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 	componentDidMount() {
 		let userId = this.props.match.params.userId
 		if (!userId) {
-			userId = "12448"
+			userId = this.props.authorizedUserId
 		}
 		this.props.getProfile(userId)
 		this.props.getStatus(userId)
@@ -39,7 +40,8 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 const mapStateToProps = (state: RootStoreType) => ({
 	profile: state.profileReducer.profile,
 	auth: state.auth.isAuth,
-	status: state.profileReducer.status
+	status: state.profileReducer.status,
+	authorizedUserId: state.auth.userId
 })
 export default compose<React.ComponentType>(
 	connect(mapStateToProps, {getProfile, getStatus, updateStatus}),

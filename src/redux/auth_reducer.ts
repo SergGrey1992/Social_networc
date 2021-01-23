@@ -7,13 +7,13 @@ import {RootStoreType} from "./redux_store";
 const SET_USER_DATA = "SET_USER_DATA"
 const LOGIN_ME = "LOGIN_ME"
 const LOG_OUT = "LOG_OUT"
-const ERROR_MESSAGE = "ERROR_MESSAGE"
+const ERROR_MESSAGE_REDUCER = "ERROR_MESSAGE_REDUCER"
 
 export const setUserData = (userId: number | null, email: string | null, login: string | null) => {
 	return {type: SET_USER_DATA, data: {userId, email, login} } as const}
 export const loginMe = () => ({type: LOGIN_ME}as const)
 export const logOut = () => ({type: LOG_OUT}as const)
-export const setError = (messError: string) => ({type: ERROR_MESSAGE, messError }as const)
+export const setError = (messError: string) => ({type: ERROR_MESSAGE_REDUCER, messError }as const)
 
 export const getAuthUserData = () => {
 	return (dispatch: Dispatch) => {
@@ -27,12 +27,13 @@ export const getAuthUserData = () => {
 	}
 }
 export const getLoginMe = (formData: formDataType) => {
-	return (dispatch: ThunkDispatch< RootStoreType, {}, ReturnType<typeof setError> >) => {
+	return (dispatch: ThunkDispatch< RootStoreType, {}, ReturnType<typeof setError>>) => {
 		authAPI.login(formData)
 			.then( (res)=> {
 				if (res.data.resultCode === 1) {
 					let messError = res.data.messages[0]
 					dispatch(setError(messError))
+					//dispatch(stopSubmit("login", {_error: 'Common error'})) need fix ts
 					console.log(res.data.messages)
 				}
 				if(res.data.resultCode === 0) {
@@ -89,7 +90,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 				isAuth: false
 			}
 		}
-		case ERROR_MESSAGE : {
+		case ERROR_MESSAGE_REDUCER : {
 			return {
 				...state,
 				isError: true,

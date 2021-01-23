@@ -4,6 +4,7 @@ import Post from "./Post/Post";
 import {PostType} from '../../../redux/store';
 import MyPostsMessageContainer from "./MyPostMessage/MyPostsMessageContainer";
 
+
 type MyPostsPropsType={
   newPostText: string
   posts:PostType[]

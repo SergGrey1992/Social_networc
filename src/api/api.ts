@@ -40,7 +40,6 @@ export const authAPI = {
 	},
 	logOut() {
 		return instance.delete("/auth/login")
-
 	}
 }
 export const profileAPI = {
