@@ -15,9 +15,8 @@ export const loginMe = () => ({type: LOGIN_ME}as const)
 export const logOut = () => ({type: LOG_OUT}as const)
 export const setError = (messError: string) => ({type: ERROR_MESSAGE_REDUCER, messError }as const)
 
-export const getAuthUserData = () => {
-	return (dispatch: Dispatch) => {
-		authAPI.me()
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+		return  authAPI.me()
 			.then(response => {
 				if (response.data.resultCode === 0) {
 					let {id, email, login} = response.data.data
@@ -25,7 +24,7 @@ export const getAuthUserData = () => {
 				}
 			})
 	}
-}
+
 export const getLoginMe = (formData: formDataType) => {
 	return (dispatch: ThunkDispatch< RootStoreType, {}, ReturnType<typeof setError>>) => {
 		authAPI.login(formData)
