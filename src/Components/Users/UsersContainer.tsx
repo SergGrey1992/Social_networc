@@ -11,6 +11,13 @@ import {
 } from "../../redux/users_reducer";
 import {Users} from "./Users";
 import {PreLoader} from "../../common/PreLoader/PreLoader";
+import {
+	getCurrentPageSelector, getFollowingInProgressSelector,
+	getIsFetchingSelector,
+	getPageSizeSelector,
+	getTotalUsersCountSelector,
+	getUsersSelector
+} from '../../redux/users_selectors';
 
 type usersPropsType = {
 	users: Array<usersType>
@@ -51,6 +58,7 @@ class UsersContainer extends React.Component<usersPropsType, {}> {
 		</>
 	}
 }
+/*
 const mapStateToProps = (state: RootStoreType) => {
 	return {
 		users: state.usersReducer.users,
@@ -61,6 +69,19 @@ const mapStateToProps = (state: RootStoreType) => {
 		followingInProgress: state.usersReducer.followingInProgress
 	}
 }
+*/
+
+const mapStateToProps = (state: RootStoreType) => {
+	return {
+		users: getUsersSelector(state),
+		pageSize: getPageSizeSelector(state),
+		totalUsersCount: getTotalUsersCountSelector(state),
+		currentPage: getCurrentPageSelector(state),
+		isFetching: getIsFetchingSelector(state),
+		followingInProgress: getFollowingInProgressSelector(state)
+	}
+}
+
 export default connect(mapStateToProps, {
 		followSuccess,
 		unFollowSuccess,
