@@ -1,4 +1,5 @@
 import {Dispatch} from "redux";
+import { FormAction, stopSubmit } from "redux-form";
 import {ThunkDispatch} from "redux-thunk";
 import {authAPI} from "../api/api";
 import {formDataType} from "../Components/Login/Login";
@@ -26,13 +27,13 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
 	}
 
 export const getLoginMe = (formData: formDataType) => {
-	return (dispatch: ThunkDispatch< RootStoreType, {}, ReturnType<typeof setError>>) => {
+	return (dispatch: ThunkDispatch<RootStoreType, unknown, ActionType | FormAction>) => {
 		authAPI.login(formData)
 			.then( (res)=> {
 				if (res.data.resultCode === 1) {
 					let messError = res.data.messages[0]
 					dispatch(setError(messError))
-					//dispatch(stopSubmit("login", {_error: 'Common error'})) need fix ts
+					dispatch(stopSubmit("login", {_error: 'Common error'}))
 					console.log(res.data.messages)
 				}
 				if(res.data.resultCode === 0) {

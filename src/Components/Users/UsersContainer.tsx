@@ -12,11 +12,12 @@ import {
 import {Users} from "./Users";
 import {PreLoader} from "../../common/PreLoader/PreLoader";
 import {
-	getCurrentPageSelector, getFollowingInProgressSelector,
+	getCurrentPageSelector,
+	getFollowingInProgressSelector,
 	getIsFetchingSelector,
 	getPageSizeSelector,
 	getTotalUsersCountSelector,
-	getUsersSelector
+	getUsersSuperSelector
 } from '../../redux/users_selectors';
 
 type usersPropsType = {
@@ -73,7 +74,7 @@ const mapStateToProps = (state: RootStoreType) => {
 
 const mapStateToProps = (state: RootStoreType) => {
 	return {
-		users: getUsersSelector(state),
+		users: getUsersSuperSelector(state),
 		pageSize: getPageSizeSelector(state),
 		totalUsersCount: getTotalUsersCountSelector(state),
 		currentPage: getCurrentPageSelector(state),
