@@ -95,7 +95,7 @@ let initialState: InitialStateType = {
 	],
 	newPostText: "",
 	profile: [],
-	status: "Укажите статус"
+	status: ""
 }
 const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
 	switch (action.type) {
