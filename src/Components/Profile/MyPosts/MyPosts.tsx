@@ -12,7 +12,8 @@ type MyPostsPropsType={
   addPost: (formData: string) => void
 }
 
-export const MyPosts = (props:MyPostsPropsType) => {
+export const MyPosts = React.memo((props:MyPostsPropsType) => {
+  console.log("MyPosts")
   let postsElement = props.posts.map(post => <Post key={post.id} message={post.message} likesCount={post.likesCount}/>)
 
   return <div className={style.wrapperItem}>
@@ -22,5 +23,5 @@ export const MyPosts = (props:MyPostsPropsType) => {
     </div>
     {postsElement}
   </div>
-}
+})
 

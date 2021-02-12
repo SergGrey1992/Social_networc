@@ -21,9 +21,7 @@ export class App extends React.Component<AppPropsType, {}> {
 	componentDidMount() {
 		this.props.initializeApp()
 	}
-
 	render() {
-		debugger
 		if (!this.props.intialized) {
 			return <PreLoader/>
 		}
