@@ -2,12 +2,16 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = "ADD_POST";
+const DELETE_POST = "DELETE_POST";
 const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const UPDATE_STATUS = "UPDATE_STATUS";
 export const addPost = (formData: string) => {
 	return {type: ADD_POST, formData} as const
+}
+export const deletePost = (postId: number) => {
+	return {type: DELETE_POST, postId} as const
 }
 export const changePostText = (valueTextarea: string) => {
 	return {type: CHANGE_POST_TEXT, newPostText: valueTextarea} as const
@@ -48,10 +52,12 @@ export const updateStatus = (status: string) => {
 }
 export type ActionType =
 	ReturnType<typeof addPost> |
+	ReturnType<typeof deletePost> |
 	ReturnType<typeof changePostText> |
 	ReturnType<typeof setUserProfile> |
 	ReturnType<typeof updateUserStatus> |
 	ReturnType<typeof setUserStatus>
+
 type PostType = {
 	id: number
 	message: string
@@ -80,7 +86,7 @@ type PhotosType = {
 	small: string | null
 	large: string | null
 }
-type InitialStateType = {
+export type InitialStateType = {
 	posts: Array<PostType>
 	newPostText: string
 	profile: Array<ProfilePageTypeAPI>
@@ -103,6 +109,12 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 			return {
 				...state,
 				posts: [...state.posts, {id: 5, message: action.formData, likesCount: 0}]
+			}
+		}
+		case DELETE_POST: {
+			return {
+				...state,
+				posts: state.posts.filter(p => p.id !== action.postId)
 			}
 		}
 		case CHANGE_POST_TEXT: {

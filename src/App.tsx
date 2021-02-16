@@ -26,6 +26,7 @@ export class App extends React.Component<AppPropsType, {}> {
 			return <PreLoader/>
 		}
 		return (
+
 			<div className='app_wrapper'>
 				<HeaderContainer/>
 				<Navbar/>

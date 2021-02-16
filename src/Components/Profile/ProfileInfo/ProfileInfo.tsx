@@ -2,7 +2,6 @@ import React from 'react';
 import style from './DescriptionBlock.module.css';
 import {ProfilePageTypeAPI} from "../../../redux/profile_reducer";
 import userPhoto from "../../../assect/user_Photo.jpg";
-import {ProfileStatus} from "./ProfileStatus"
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type PropsType = {
