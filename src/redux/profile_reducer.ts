@@ -1,12 +1,13 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
-const ADD_POST = "ADD_POST";
-const DELETE_POST = "DELETE_POST";
-const CHANGE_POST_TEXT = "CHANGE_POST_TEXT";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
-const UPDATE_STATUS = "UPDATE_STATUS";
+const ADD_POST = "/redux/profile-reducer/ADD_POST";
+const DELETE_POST = "/redux/profile-reducer/DELETE_POST";
+const CHANGE_POST_TEXT = "/redux/profile-reducer/CHANGE_POST_TEXT";
+const SET_USER_PROFILE = "/redux/profile-reducer/SET_USER_PROFILE";
+const SET_STATUS = "/redux/profile-reducer/SET_STATUS";
+const UPDATE_STATUS = "/redux/profile-reducer/UPDATE_STATUS";
+
 export const addPost = (formData: string) => {
 	return {type: ADD_POST, formData} as const
 }
@@ -25,31 +26,32 @@ export const setUserStatus = (status: string) => {
 export const updateUserStatus = (status: string) => {
 	return {type: UPDATE_STATUS, status} as const
 }
-export const getProfile = (userId: string) => {
-	return (dispatch: Dispatch) => {
-		usersAPI.getProfile(userId).then(data => {
-			dispatch(setUserProfile(data))
-		})
-	}
+// export const getProfile = (userId: string) => {
+// 	return (dispatch: Dispatch) => {
+// 		usersAPI.getProfile(userId).then(data => {
+// 			dispatch(setUserProfile(data))
+// 		})
+// 	}
+// }
+
+export const getProfile = (userId: string) => async (dispatch: Dispatch) => {
+	let response = await usersAPI.getProfile(userId);
+		dispatch(setUserProfile(response))
 }
-export const getStatus = (userId: string) => {
-	return (dispatch: Dispatch) => {
-		profileAPI.getStatus(userId).then(res => {
+
+export const getStatus = (userId: string) => async (dispatch: Dispatch) => {
+		let res = await profileAPI.getStatus(userId)
 			dispatch(setUserStatus(res.data))
-		})
 	}
-}
-export const updateStatus = (status: string) => {
-	return (dispatch: Dispatch) => {
-		profileAPI.updateStatus(status)
-			.then(res => {
+
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+		let res = await profileAPI.updateStatus(status)
 				if (res.data.resultCode === 0) {
 					debugger
 					dispatch(setUserStatus(status))
 				}
-			})
 	}
-}
+
 export type ActionType =
 	ReturnType<typeof addPost> |
 	ReturnType<typeof deletePost> |

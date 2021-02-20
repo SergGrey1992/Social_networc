@@ -15,6 +15,7 @@ export const ProfileInfo = (props: PropsType) => {
 		<div>
 			{
 				props.profile.map((prof, index) =>
+
 					<div key={index}>
 						{prof.fullName}
 						<div>{prof.aboutMe}</div>
