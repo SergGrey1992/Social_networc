@@ -75,6 +75,12 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
 				isAuth: false
 			}
 		}
+		case LOGIN_ME: {
+			return {
+				...state,
+				isAuth: true
+			}
+		}
 		case ERROR_MESSAGE_REDUCER : {
 			return {
 				...state,

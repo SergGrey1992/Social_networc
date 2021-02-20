@@ -4,9 +4,9 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfilePropsType} from "./ProfileContainer";
 
-const Profile = (props: ProfilePropsType) => {
+const Profile: React.FC<ProfilePropsType> = ({profile, status, updateStatus}) => {
 	return <div className={style.wrapperProfile}>
-		<ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+		<ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
 		<MyPostsContainer />
 	</div>
 }

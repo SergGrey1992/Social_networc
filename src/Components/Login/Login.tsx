@@ -46,7 +46,7 @@ export const LoginForm: React.FC<InjectedFormProps<formDataType> > = (
 
 				{createField('text', 'email', 'email', Input, [required])}
 				{createField('text', 'Password', 'password', Input, [required])}
-				{createField('checkbox', null, 'rememberMe', Input)}
+				{createField('checkbox', null, 'rememberMe', Input, null,{},  "remember me")}
 
 			<div>
 				<button>Login</button>
