@@ -25,6 +25,7 @@ type usersPropsType = {
 	pageSize: number
 	totalUsersCount: number
 	currentPage: number
+	portionSize: number
 	follow: (userID: number) => void
 	unFollow: (userID: number) => void
 	setCurrentPage: (currentPageNumber: number) => void
@@ -45,6 +46,13 @@ class UsersContainer extends React.Component<usersPropsType, {}> {
 		this.props.getUsers(currentPageNumber, pageSize)
 	}
 
+
+	setCurrentPage = (pageNumber: number) => {
+		const {setCurrentPage, getUsers, pageSize} = this.props;
+		setCurrentPage(pageNumber);
+		getUsers(pageNumber, pageSize);
+	}
+
 	render() {
 		return <>
 			{this.props.isFetching ? <PreLoader/> : null}
@@ -57,6 +65,8 @@ class UsersContainer extends React.Component<usersPropsType, {}> {
 						 unFollow={this.props.unFollow}
 						 followingInProgress={this.props.followingInProgress}
 						 toggleFollowingProgress={this.props.toggleFollowingProgress}
+						 portionSize={this.props.portionSize}
+						 setCurrentPage={this.setCurrentPage}
 			/>
 		</>
 	}
@@ -68,6 +78,7 @@ const mapStateToProps = (state: RootStoreType) => {
 		pageSize: getPageSizeSelector(state),
 		totalUsersCount: getTotalUsersCountSelector(state),
 		currentPage: getCurrentPageSelector(state),
+		portionSize: state.usersReducer.portionSize,
 		isFetching: getIsFetchingSelector(state),
 		followingInProgress: getFollowingInProgressSelector(state)
 	}

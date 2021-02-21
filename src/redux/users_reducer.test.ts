@@ -5,6 +5,7 @@ let state = {
 	pageSize: 20,
 	totalUsersCount: 20,
 	currentPage: 1,
+	portionSize: 10,
 	isFetching: false,
 	followingInProgress: []
 }
