@@ -35,7 +35,7 @@ export type PostType = {
 export type ProfilePageType = {
   posts: Array<PostType>
   newPostText: string
-  profile: Array<ProfilePageTypeAPI>
+  profile: ProfilePageTypeAPI
   status:string
 }
 
@@ -62,7 +62,7 @@ export type RootStateType = {
         {id: 4, message: "Awesome!!!", likesCount: 421}
         ],
       newPostText: "",
-      profile: [],
+      profile: {} as ProfilePageTypeAPI,
       status: ''
     },
     messagesPage: {

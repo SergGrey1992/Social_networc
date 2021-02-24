@@ -26,7 +26,7 @@ export const ProfileStatusWithHooks:React.FC<ProfileStatusPropsType> =({ status,
 			<>
 				{!editMode &&
         <div>
-            <span onDoubleClick={activeModeHandler}>{status === '' ? 'укажите статус' : status }</span>
+            <b>Status: </b><span onDoubleClick={activeModeHandler}>{status === '' ? 'укажите статус' : status }</span>
         </div>
 				}
 				{editMode &&

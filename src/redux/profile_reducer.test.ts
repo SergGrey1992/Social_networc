@@ -65,9 +65,9 @@ test("profile should set data", () => {
 		lookingForAJobDescription: "test",
 		fullName: 'test',
 		aboutMe: "test",
-		contacts: null,
+		contacts: {facebook:'', github: '', instagram:'', vk: '', twitter:'', website: null, youtube:null, mainLink:null},
 		lookingForAJob: true,
-		photos: null
+		photos: {large:'', small: ''}
 	})
 	//2. action
 	let newState = profileReducer(state, action)

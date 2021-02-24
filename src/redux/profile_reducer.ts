@@ -51,7 +51,6 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
 	let res = await profileAPI.savePhoto(file)
 	if (res.data.resultCode === 0) {
-		debugger
 		dispatch(savePhotoSuccess(res.data.data.photos))
 	}
 }
@@ -73,22 +72,23 @@ type PostType = {
 }
 export type ProfilePageTypeAPI = {
 	aboutMe: string
-	contacts: ContactsType | null
+	contacts: ContactsType
 	lookingForAJob: boolean
 	lookingForAJobDescription: string
 	fullName: string
 	userId: number
-	photos: PhotosType | null
+	photos: PhotosType
 }
 type ContactsType = {
-	facebook: string
-	website: null
-	vk: string
-	twitter: string
-	instagram: string
-	youtube: null
-	github: string
-	mainLink: null
+	[key: string]: null |string
+	facebook: string | null
+	website: string | null
+	vk: string | null
+	twitter: string | null
+	instagram: string | null
+	youtube: string | null
+	github: string | null
+	mainLink: string | null
 }
 type PhotosType = {
 	small: string | null
@@ -97,7 +97,7 @@ type PhotosType = {
 export type InitialStateType = {
 	posts: Array<PostType>
 	newPostText: string
-	profile: Array<ProfilePageTypeAPI>
+	profile: ProfilePageTypeAPI
 	status: string
 }
 let initialState: InitialStateType = {
@@ -108,7 +108,7 @@ let initialState: InitialStateType = {
 		{id: 4, message: "Awesome!!!", likesCount: 421}
 	],
 	newPostText: "",
-	profile: [],
+	profile: {} as ProfilePageTypeAPI,
 	status: ""
 }
 const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -134,7 +134,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 		case SET_USER_PROFILE: {
 
 			return {
-				...state, profile: [action.profile]
+				...state, profile: action.profile
 			}
 		}
 		case SET_STATUS: {
@@ -150,9 +150,8 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 			}
 		}
 		case SAVE_PHOTO_SUCCESS: {
-			debugger
 			return {
-				...state, profile: state.profile.map(p => ({...p, photos: action.photos  }) )
+				...state, profile: {...state.profile, photos: action.photos}
 			}
 		}
 		default:

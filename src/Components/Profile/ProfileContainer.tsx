@@ -9,7 +9,7 @@ import {compose} from 'redux';
 
 export interface ProfilePropsType extends RouteComponentProps<{ userId: string }> {
 	children?: ReactNode
-	profile: Array<ProfilePageTypeAPI>
+	profile: ProfilePageTypeAPI
 	auth: boolean
 	status: string
 	isOwner: boolean
