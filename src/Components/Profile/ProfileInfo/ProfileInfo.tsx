@@ -26,7 +26,7 @@ export const ProfileInfo: React.FC<PropsType> = ({
 	const toEditMode = () => {
 		setEditMode(true)
 	}
-
+	//test commit
 	const onPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files!.length) {
 			savePhoto(e.target.files![0])
