@@ -1,38 +1,21 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import { PostType} from '../../../redux/store';
-import {addPostActionCreator} from "../../../redux/profile_reducer";
+import React from 'react';
+import {PostType} from '../../../redux/store';
+import {addPost, changePostText} from "../../../redux/profile_reducer";
 import {MyPosts} from "./MyPosts";
+import {connect} from "react-redux";
+import {RootStoreType} from "../../../redux/redux_store";
 
-
-type MyPostsContainerPropsType={
-  posts:PostType[]
-  dispatch: (action: any) => void
+type MSTPType = {
+  posts: Array<PostType>
+  newPostText: string
 }
 
-export const MyPostsContainer = (props:MyPostsContainerPropsType) => {
-
-  const [valueTextarea, setValueTextarea] = useState("")
-
-  const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValueTextarea(e.currentTarget.value)
+const mapStateToProps = (state: RootStoreType): MSTPType => {
+  return {
+    posts: state.profileReducer.posts,
+    newPostText: state.profileReducer.newPostText
   }
-
-  const onClickHandlerButton = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
-      onClickButton()
-    }
-  }
-
-  const onClickButton = () => {
-    props.dispatch(addPostActionCreator(valueTextarea))
-    setValueTextarea("")
-  }
-
-  return <MyPosts valueTextarea={valueTextarea}
-                  changeTextarea={changeTextarea}
-                  onClickHandlerButton={onClickHandlerButton}
-                  onClickButton={onClickButton}
-                  posts={props.posts}
-  />
 }
+
+export const MyPostsContainer = connect(mapStateToProps, {changePostText, addPost})(MyPosts)
 

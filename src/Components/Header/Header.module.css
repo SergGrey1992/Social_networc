@@ -1,4 +1,15 @@
 .wrapperHeader {
-    background-color: green;
-    grid-area: h;
+    background-color: #16161a;
+    grid-area: header;
+}
+.img {
+    height: 60px;
+}
+
+.loginBlock {
+    float: right;
+}
+
+.info {
+    color: #fffffe;
 }
