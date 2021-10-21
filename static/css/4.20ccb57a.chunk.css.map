@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/common/Paginator/Paginator.module.css","webpack://src/Components/Users/Users.module.css"],"names":[],"mappings":"AAAA,+BACC,eACD,CCFA,yBACE,WAAY,CACZ,YACF","file":"4.20ccb57a.chunk.css","sourcesContent":[".selectedPage {\r\n\tfont-weight: bold;\r\n}",".stylePhoto {\r\n  width: 100px;\r\n  height: 100px;\r\n}\r\n"]}
